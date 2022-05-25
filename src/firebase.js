@@ -1,6 +1,6 @@
 import {useState,useEffect} from 'react';
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+import { getStorage } from "firebase/storage";
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -21,7 +21,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+
 export const auth = getAuth();
 export const db = getFirestore(app);
 
@@ -46,4 +46,5 @@ export function logout(){
     return signOut(auth);
 }
 
+export const storage = getStorage(app);
 

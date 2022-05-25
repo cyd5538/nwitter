@@ -50,11 +50,8 @@ const Loginjoinbtn = styled.div`
     font-size: 1.3rem;
     margin-left: 3px;
     margin-right: 3px;
-    transition: all ease-in 0.3s;
   }
-  button:hover {
-    transform: scale(1.03);
-  }
+
 `;
 const GoogleGithub = styled.div`
   margin-top: 50px;
