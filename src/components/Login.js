@@ -1,17 +1,17 @@
 import { useState } from "react";
-import { signup, login, useAuth } from "../firebase";
+import { signup, login } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import {
   getAuth,
   GoogleAuthProvider,
   signInWithPopup,
   GithubAuthProvider,
-  OAuthProvider,
 } from "firebase/auth";
 import styled from "styled-components";
 import logo from "../asset/logo.png";
 import { FcGoogle } from "react-icons/fc";
 import { BsGithub } from "react-icons/bs";
+
 const LoginStyle = styled.div`
   width: 100%;
 

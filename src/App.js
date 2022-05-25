@@ -1,11 +1,13 @@
 import React from 'react'
 import Login from './components/Login';
-import Home from './components/Home'
+import Home from './pages/Home'
+import Profile from './pages/Profile';
 import {Route, Routes} from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { Theme } from './style/Theme';
 import GlobalStyle from './style/GlobalStyle'
 import styled from 'styled-components';
+
 
 const Appstyle = styled.div`
   margin-top: 50px;
@@ -24,6 +26,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />}/>
           <Route path="/home" element={<Home />}/>
+          <Route path="/profile" element={<Profile />}/>
         </Routes>
       </Appstyle>
     </ThemeProvider>
