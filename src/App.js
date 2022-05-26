@@ -12,8 +12,8 @@ import styled from 'styled-components';
 const Appstyle = styled.div`
   margin-top: 50px;
   height: 700px;
-  width: 500px;
-  border: 1px solid #000;
+  width: 600px;
+
   background-color: white;
 
 `

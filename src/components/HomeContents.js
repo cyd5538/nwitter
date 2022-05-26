@@ -38,7 +38,7 @@ const ContainerStyled = styled.div`
             height: 25px;
             position: absolute;
             top: 0;
-            right: 5px;
+            right: -45px;
             font-size: 1.2rem;
             padding-top: 2px;
             font-weight: bold;
@@ -54,6 +54,7 @@ const HomeContents = () => {
     const [postlist,setPostlist] = useState([]);
     const postsCollectionRef = collection(db, "posts");
    
+    //write
     useEffect(() => {
         const getPosts = async () => {
             const data = await getDocs(postsCollectionRef)
@@ -62,6 +63,7 @@ const HomeContents = () => {
         getPosts()
     }, [postlist])
 
+    //delete
     const deletePost = async (id) => {
         const postDoc = doc(db, "posts", id)
         await deleteDoc(postDoc)
@@ -75,6 +77,7 @@ const HomeContents = () => {
                 <div>{post.title}</div>
                 <div className='content_under'>
                     <div>{post.author.name}</div>
+                    <button>수정</button>
                     <button onClick={() => {deletePost(post.id)}}><AiOutlineClose /></button>
                 </div>
             </div>
