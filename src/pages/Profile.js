@@ -2,6 +2,9 @@ import React from "react";
 import Nav from "./Nav";
 import { logout, useAuth } from "../firebase";
 import { useNavigate } from "react-router-dom";
+import ProfileImage from "../components/ProfileImage";
+
+
 const Profile = () => {
   let navigate = useNavigate();
   const currentUser = useAuth();
@@ -16,6 +19,7 @@ const Profile = () => {
   return (
     <div>
       <Nav />
+      <ProfileImage />
       <div>환영합니다 {currentUser?.email}</div>
       <button onClick={handleLogout}>Log Out</button>
     </div>

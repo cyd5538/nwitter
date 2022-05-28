@@ -1,14 +1,15 @@
 import {useState,useEffect} from 'react';
 import { initializeApp } from "firebase/app";
-import { getStorage } from "firebase/storage";
 import {
   getAuth,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 import { getFirestore } from 'firebase/firestore'
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyB4s4QcXo0NOlDkr_hiq_tLMtf8VvB18DY",
@@ -46,5 +47,14 @@ export function logout(){
     return signOut(auth);
 }
 
+//  profile 사진올리기
 export const storage = getStorage(app);
+export async function upload(file, currentUser, setLoading) {
+  const fileRef = ref(storage, currentUser.uid + '.png');
 
+  const snapshot = await uploadBytes(fileRef, file);
+  const photoURL = await getDownloadURL(fileRef); 
+
+  updateProfile(currentUser, {photoURL});
+
+}

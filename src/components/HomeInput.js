@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { addDoc, collection } from "firebase/firestore";
 import { db, auth } from "../firebase";
 
+
 const FormStyle = styled.form`
   diplay: flex;
   flex-direction: column;
@@ -59,6 +60,7 @@ const HomeInput = () => {
       });
       setTitle("");
     };
+    
   return (
     <FormStyle>
     <input
