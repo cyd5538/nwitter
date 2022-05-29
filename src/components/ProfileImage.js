@@ -6,16 +6,23 @@ import styled from "styled-components";
 const ProfileImageStyle = styled.div`
   display: flex;
   flex-direction: column;
-  button{
-    margin-top : 20px;
-    width:25%;
+
+  button {
+    margin-top: 20px;
+    width: 25%;
     height: 40px;
     font-size: 1rem;
-    background-color : rgb(42, 169, 224);
+    background-color: rgb(42, 169, 224);
     color: white;
-    cursor:pointer;
+    cursor: pointer;
+    border: none;
+    transition: all ease-in 0.3s;
   }
-`
+
+  button:hover {
+    transform: scale(1.03);
+  }
+`;
 
 export default function Profile() {
   const currentUser = useAuth();
@@ -30,14 +37,14 @@ export default function Profile() {
     }
   }
   const handleClick = () => {
-    upload(photo, currentUser, setLoading);
-  }
+      upload(photo, currentUser, setLoading);
+  };
 
   useEffect(() => {
     if (currentUser?.photoURL) {
       setPhotoURL(currentUser.photoURL);
     }
-  }, [currentUser,photoURL]);
+  }, [currentUser, photoURL]);
 
   return (
     <ProfileImageStyle>
@@ -49,6 +56,7 @@ export default function Profile() {
           ImageRef.current.click();
         }}
       />
+
       <input
         ref={ImageRef}
         type="file"

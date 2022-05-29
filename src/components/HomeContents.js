@@ -7,9 +7,9 @@ const ContainerStyled = styled.div`
     display: flex;
     width: 90%;
     border-radius: 20px;
-    border: 1px solid #000;
+    border: 3px solid #000;
     position: relative;
-    margin-top : 25px;
+    margin-top : 20px;
     border: 3px solid rgb(3, 169, 244);
    
     .photo{
@@ -23,12 +23,14 @@ const ContainerStyled = styled.div`
         margin : 0;
         margin-left: 10px;
         margin-right: 5px;
-        
+        font-size: 1.2rem;
     }
     .content_under{
         margin-top: 15px;
         position: relative;
         padding-bottom: 10px;
+        font-size: 1rem;
+        font-weight: bold;
         button{
             background-color: rgb(3, 169, 244);
             cursor: pointer;
@@ -76,8 +78,7 @@ const HomeContents = () => {
             <div className='content'> 
                 <div>{post.title}</div>
                 <div className='content_under'>
-                    <div>{post.author.name}</div>
-                    <button>수정</button>
+                    <div>{post.author.name}</div> 
                     <button onClick={() => {deletePost(post.id)}}><AiOutlineClose /></button>
                 </div>
             </div>
