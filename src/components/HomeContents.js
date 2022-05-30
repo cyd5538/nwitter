@@ -61,8 +61,10 @@ const HomeContents = () => {
         const getPosts = async () => {
             const data = await getDocs(postsCollectionRef)
             setPostlist(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
+            
         }
         getPosts()
+
     }, [postlist])
 
     //delete
@@ -70,6 +72,7 @@ const HomeContents = () => {
         const postDoc = doc(db, "posts", id)
         await deleteDoc(postDoc)
     }
+
   return (
     <div>
       {postlist.map((post) => (
@@ -79,6 +82,8 @@ const HomeContents = () => {
                 <div>{post.title}</div>
                 <div className='content_under'>
                     <div>{post.author.name}</div> 
+                    <div>{post.author.id}</div>          
+                    <div>{post.timestamp}</div> 
                     <button onClick={() => {deletePost(post.id)}}><AiOutlineClose /></button>
                 </div>
             </div>

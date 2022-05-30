@@ -36,6 +36,7 @@ export default function Profile() {
       setPhoto(e.target.files[0]);
     }
   }
+    
   const handleClick = () => {
       upload(photo, currentUser, setLoading);
   };

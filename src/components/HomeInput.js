@@ -1,8 +1,8 @@
-import React, { useState }  from 'react'
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { addDoc, collection } from "firebase/firestore";
 import { db, auth } from "../firebase";
-
+import { useAuth, upload } from "../firebase";
 
 const FormStyle = styled.form`
   diplay: flex;
@@ -40,41 +40,56 @@ const FormStyle = styled.form`
     color: white;
     font-size: 1.1rem;
     border: 1px solid black;
-    transition: all ease-in 0.3s
+    transition: all ease-in 0.3s;
   }
-  div button:hover{
-      transform : scale(1.05);
+  div button:hover {
+    transform: scale(1.05);
   }
 `;
 
 const HomeInput = () => {
-    const [title, setTitle] = useState("");
+  const currentUser = useAuth();
+  const [title, setTitle] = useState("");
 
-    const postsCollectionRef = collection(db, "posts");
-  
-    const createTwit = async (e) => {
-      e.preventDefault();
-      await addDoc(postsCollectionRef, {
-        title,
-        author: { name: auth.currentUser.displayName || auth.currentUser.email, id: auth.currentUser.uid },
-      });
-      setTitle("");
-    };
-    
+
+
+  const postsCollectionRef = collection(db, "posts");
+
+  const createTwit = async (e) => {
+
+    e.preventDefault();
+    await addDoc(postsCollectionRef, {
+      title,
+      author: {
+        name: auth.currentUser.displayName || auth.currentUser.email,
+        id: auth.currentUser.uid,
+      },
+      timestamp : Date(),
+    });
+    setTitle("");
+  };
+
+
+
   return (
     <FormStyle>
-    <input
-      placeholder="트윗을 작성해주세요."
-      onChange={(e) => {
-        setTitle(e.target.value);
-      }}
-      value={title}
-    />
-    <div>
-      <button onClick={createTwit}>Enter</button>
-    </div>
-  </FormStyle>
-  )
-}
+      <input
+        placeholder="트윗을 작성해주세요."
+        onChange={(e) => {
+          setTitle(e.target.value);
+        }}
+        value={title}
+      />
+      <input 
+        placeholder="사진을 넣어주세요"
+        type="file"
+        onChange={handleChange}
+      />
+      <div>
+        <button onClick={createTwit}>Enter</button>
+      </div>
+    </FormStyle>
+  );
+};
 
-export default HomeInput
+export default HomeInput;
