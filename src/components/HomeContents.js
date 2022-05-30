@@ -3,6 +3,8 @@ import {getDocs,collection, deleteDoc, doc} from 'firebase/firestore'
 import { db } from '../firebase';
 import styled from 'styled-components';
 import { AiOutlineClose } from "react-icons/ai";
+
+
 const ContainerStyled = styled.div`
     display: flex;
     width: 90%;
@@ -52,7 +54,7 @@ const ContainerStyled = styled.div`
     }
 `
 
-const HomeContents = () => {
+const HomeContents = ({imageUrls}) => {
     const [postlist,setPostlist] = useState([]);
     const postsCollectionRef = collection(db, "posts");
    
@@ -77,12 +79,11 @@ const HomeContents = () => {
     <div>
       {postlist.map((post) => (
           <ContainerStyled>
-            <div className="photo">포토사진</div>
+            <div className="photo"><img src={imageUrls} style={{width:'50px', height:'50px'}} alt="" /></div>
             <div className='content'> 
                 <div>{post.title}</div>
                 <div className='content_under'>
-                    <div>{post.author.name}</div> 
-                    <div>{post.author.id}</div>          
+                    <div>{post.author.name}</div>       
                     <div>{post.timestamp}</div> 
                     <button onClick={() => {deletePost(post.id)}}><AiOutlineClose /></button>
                 </div>

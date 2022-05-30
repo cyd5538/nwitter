@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { addDoc, collection } from "firebase/firestore";
-import { db, auth } from "../firebase";
-import { useAuth, upload } from "../firebase";
+import { db, auth, storage } from "../firebase";
+import { getDownloadURL, ref, uploadBytes, listAll } from "firebase/storage";
+import { addDoc,collection } from "firebase/firestore";
 
 const FormStyle = styled.form`
   diplay: flex;
@@ -48,28 +48,50 @@ const FormStyle = styled.form`
 `;
 
 const HomeInput = () => {
-  const currentUser = useAuth();
   const [title, setTitle] = useState("");
-
-
+  const [imageUpload, setImageUpload] = useState(null);
+  const [imageUrls, setImageUrls] = useState([]);
 
   const postsCollectionRef = collection(db, "posts");
 
   const createTwit = async (e) => {
-
     e.preventDefault();
+    uploadFile()
     await addDoc(postsCollectionRef, {
       title,
       author: {
         name: auth.currentUser.displayName || auth.currentUser.email,
         id: auth.currentUser.uid,
       },
-      timestamp : Date(),
+      timestamp: Date(),
     });
     setTitle("");
   };
 
+  const imagesListRef = ref(storage, "images/");
+  const uploadFile = () => {
+    if (imageUpload == null) return;
+    const imageRef = ref(storage, `images/${imageUpload.name}`);
+    uploadBytes(imageRef, imageUpload).then((snapshot) => {
+      getDownloadURL(snapshot.ref).then((url) => {
+        setImageUrls((prev) => [...prev, url]);
+      });
+    });
+  };
 
+  useEffect(() => {
+    listAll(imagesListRef).then((response) => {
+      response.items.forEach((item) => {
+        getDownloadURL(item).then((url) => {
+          setImageUrls((prev) => [...prev, url]);
+        });
+      });
+    });
+  }, []);
+
+  const handleChange = (e) => {
+    setImageUpload(e.target.files[0]);
+  };
 
   return (
     <FormStyle>
@@ -80,13 +102,16 @@ const HomeInput = () => {
         }}
         value={title}
       />
-      <input 
+      <input
         placeholder="사진을 넣어주세요"
         type="file"
         onChange={handleChange}
       />
       <div>
         <button onClick={createTwit}>Enter</button>
+        {imageUrls.map((url) => {
+        return <img src={url} alt="" />;
+      })}
       </div>
     </FormStyle>
   );
