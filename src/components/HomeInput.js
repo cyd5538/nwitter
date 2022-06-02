@@ -109,9 +109,6 @@ const HomeInput = () => {
       />
       <div>
         <button onClick={createTwit}>Enter</button>
-        {imageUrls.map((url) => {
-        return <img src={url} alt="" />;
-      })}
       </div>
     </FormStyle>
   );

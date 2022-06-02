@@ -79,7 +79,7 @@ const HomeContents = ({imageUrls}) => {
     <div>
       {postlist.map((post) => (
           <ContainerStyled>
-            <div className="photo"><img src={imageUrls} style={{width:'50px', height:'50px'}} alt="" /></div>
+            <div className="photo"><img src="" alt="" /></div>
             <div className='content'> 
                 <div>{post.title}</div>
                 <div className='content_under'>
